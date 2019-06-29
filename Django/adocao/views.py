@@ -12,6 +12,9 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 # Importa o TemplateView para criação de páginas simples
 from django.views.generic import TemplateView
 
+# Importa ListView para gerar as telas com tabelas
+from django.views.generic.list import ListView
+
 
 # Create your views here.
 
@@ -49,7 +52,7 @@ class EstadoCreate(CreateView):
     # Qual o html que será utilizado?
     template_name = "adocao/formulario.html"
     # Pra onde redirecionar o usuário depois de inserir um registro. Informe o nome da url
-    success_url = reverse_lazy("index")
+    success_url = reverse_lazy("listar-estado")
     # Quais campos devem aparecer no formulário?
     fields = ['sigla', 'nome']
 
@@ -74,7 +77,7 @@ class EstadoUpdate(UpdateView):
     # Qual o html que será utilizado?
     template_name = "adocao/formulario.html"
     # Pra onde redirecionar o usuário depois de editar um registro. Informe o nome da url
-    success_url = reverse_lazy("index")
+    success_url = reverse_lazy("listar-estado")
     # Quais campos devem aparecer no formulário?
     fields = ['sigla', 'nome']
 
@@ -100,7 +103,7 @@ class EstadoDelete(DeleteView):
     # Qual o html que será utilizado?
     template_name = "adocao/formulario.html"
     # Pra onde redirecionar o usuário depois de excluir um registro. Informe o nome da url
-    success_url = reverse_lazy("index")
+    success_url = reverse_lazy("listar-estado")
 
     # Método utilizado para enviar dados ao template
     def get_context_data(self, *args, **kwargs):
@@ -114,3 +117,12 @@ class EstadoDelete(DeleteView):
 
         # Devolve/envia o context para seu comportamento padrão
         return context
+
+##################### Listar ######################
+
+# Vai gerar uma tela com uma lista de estados
+class EstadoList(ListView):
+    # Informa qual o modelo
+    model = Estado
+    # E o template
+    template_name = "adocao/list_estado.html"
